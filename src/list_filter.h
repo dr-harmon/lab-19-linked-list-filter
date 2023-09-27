@@ -36,13 +36,21 @@ public:
         head = old->next;                     // skip over old head
         delete old;                           // delete the old head
     }
-    void print() const {                      // prints all elements of the list to cout
-        // TODO: implement this method
+    void print() const {
+        SNode<E>* current = head;
+        while (current != nullptr) {
+            std::cout << current->elem << std::endl;
+            current = current->next;
+        }
     }
-                                              // adds elements from other list matching predicate
-    void addWithPredicate(const SLinkedList<E>& other,
-                          std::function<bool(const E& elem)> predicate) {
-        // TODO: implement this method
+    void addWithPredicate(const SLinkedList<E>& other, std::function<bool(const E& elem)> predicate) {
+        SNode<E>* current = other.head;
+        while (current != nullptr) {
+            if (predicate(current->elem)) {
+                addFront(current->elem);
+            }
+            current = current->next;
+        }
     }
 private:
     SNode<E>* head;                           // head of the list

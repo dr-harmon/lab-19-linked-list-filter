@@ -17,3 +17,23 @@ TEST_CASE("Linked list elements can be added to the front")
     list.addFront(3);
     REQUIRE(list.front() == 3);
 }
+
+TEST_CASE("Linked list can be filtered by a predicate")
+{
+    SLinkedList<int> listA;
+    listA.addFront(5);
+    listA.addFront(4);
+    listA.addFront(3);
+    listA.addFront(2);
+    listA.addFront(1);
+
+    SLinkedList<int> listB;
+    listB.addWithPredicate(listA, [](const int& e) { return e % 2 == 1; });
+    REQUIRE(listB.front() == 5);
+    listB.removeFront();
+    REQUIRE(listB.front() == 3);
+    listB.removeFront();
+    REQUIRE(listB.front() == 1);
+    listB.removeFront();
+    REQUIRE(listB.empty());
+}
